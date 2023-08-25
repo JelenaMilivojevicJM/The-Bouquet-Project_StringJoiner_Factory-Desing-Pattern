@@ -1,0 +1,110 @@
+package bouquet;
+
+import java.util.Scanner;
+import java.util.StringJoiner;
+
+public class Main {
+	// Here’s a line-by-line explanation:
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Welcome!");
+
+		System.out.println(
+				"Which flowers do you want to add into your Bouquet? Choose 1 for Roses, 2 for Daisies or 3 for Tulips? Plese enter the name: ");
+		int f = sc.nextInt();
+		BouquetFactory bf = new BouquetFactory();
+		StringJoiner bouquet = new StringJoiner(",");
+		if (f == 1) {
+			Flower flowerType = bf.choose("Rose");
+			System.out.println("We're preparing Your Bouquet . . . .");
+			flowerType.addIntoBouquet();
+			flowerType.getFlowerCode();
+			System.out.println("How many flowers do you want? ");
+			int counter = sc.nextInt();
+			String flower = flowerType.getFlowerCode();
+
+			for (int i = 1; i <= counter; i++) {
+				bouquet.add(flower);
+			}
+
+		} else if (f == 2) {
+			Flower flowerType = bf.choose("Daisy");
+			System.out.println("We're preparing Your Bouquet . . . .");
+			flowerType.addIntoBouquet();
+			flowerType.getFlowerCode();
+			System.out.println("How many flowers do you want? ");
+			int counter = sc.nextInt();
+			String flower = flowerType.getFlowerCode();
+
+			for (int i = 1; i <= counter; i++) {
+				bouquet.add(flower);
+			}
+
+		} else if (f == 3) {
+			Flower flowerType = bf.choose("Tulip");
+			System.out.println("We're preparing Your Bouquet . . . .");
+			flowerType.addIntoBouquet();
+			flowerType.getFlowerCode();
+			System.out.println("How many flowers do you want? ");
+			int counter = sc.nextInt();
+			String flower = flowerType.getFlowerCode();
+
+			for (int i = 1; i <= counter; i++) {
+				bouquet.add(flower);
+			}
+		} else {
+			System.out.println("Unavailable number. Please enter again.");
+		}
+
+		/*
+		 * If we imagine that we look at delimiters as leafs: Calculating and prints
+		 * the total number of delimiters will be:
+		 */
+		int totalDelimitersB = countDelimiters(bouquet, ",");
+		System.out.println(
+				"We added leafs as decorations. Total Number of leafs withim Your Bouquet: " + totalDelimitersB);
+		String leafs[] = new String[totalDelimitersB];
+		for(int i =0; i<totalDelimitersB; i++) {
+			leafs[i] = "🌿";
+		}
+		for(int i =0; i<totalDelimitersB; i++) {
+			if(i==totalDelimitersB-1) {
+			System.out.print(leafs[i]);
+			}else {
+				System.out.print(leafs[i]+",");
+			}
+		}
+		String outputB = bouquet.toString();
+		String[] stringB = outputB.split(",");
+		int num = stringB.length;
+		System.out.println("\nTotal Number of Flowers within: " + num);
+		System.out.println(bouquet);
+
+		System.out.println("****Your Bouquet is ready!****");
+		// The Unicode for the bouquet emoji is U+1F490
+		// The UTF-16 encoding for the bouquet emoji (💐) is "\uD83D\uDC90"
+		System.out.println("\uD83D\uDC90");
+		System.out.print("Please, take your Bouquet. ");
+		sc.close();
+	}
+	public static int countDelimiters(StringJoiner joiner, String delimiter) {
+		// Method that counts how many times the delimiter appears in the StringJoiner
+		// Converts the StringJoiner to a string
+		String output = joiner.toString();
+		// Counter for delimiters
+		int counter = 0;
+		// Loops through each character in the string
+		for (int i = 0; i < output.length(); i++) {
+			// Checks if the current character is a delimiter
+			if (output.substring(i, i + delimiter.length()).equals(delimiter)) {
+				// If it is, increments the counter
+				counter++;
+			}
+		}
+		// Returns the total number of delimiters
+		return counter;
+
+	}
+
+
+}

@@ -1,0 +1,129 @@
+package bouquet;
+
+import java.util.Scanner;
+import java.util.StringJoiner;
+
+/*Explanation: The program is an interactive console application that allows users to create their own virtual bouquet of flowers by choosing between roses, daisies, or tulips, and specifying how many of each they want in their bouquet.
+ *  The program then prints out a representation of their bouquet, along with some decorative leaves. 
+ *  It also counts and displays how many flowers are in their bouquet. 
+ *  The program ends by printing out a bouquet emoji and a message for the user to take their bouquet.
+ *  This program showcases the combination of using the StringJoiner class and the Factory Design Pattern.*/
+public class Main {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Welcome!");
+
+		// The line that prompts the user to choose a type of flower.
+		System.out.println(
+				"Which flowers do you want to add into your Bouquet? Choose 1 for Roses, 2 for Daisies or 3 for Tulips? Plese enter the name: ");
+
+		// This line reads an integer from the user's input and assigns it to the
+		// variable f.
+		int f = sc.nextInt();
+		// This line creates a new BouquetFactory object.
+		BouquetFactory bf = new BouquetFactory();
+		// This line creates a new StringJoiner object that will join strings with a
+		// comma as the delimiter.
+		StringJoiner bouquet = new StringJoiner(",");
+		if (f == 1) {
+			// These lines contain if-else statements that check the value of f and add the
+			// chosen type of flower to the bouquet.
+			Flower flowerType = bf.choose("Rose");
+			System.out.println("We're preparing Your Bouquet . . . .");
+			flowerType.addIntoBouquet();
+			flowerType.getFlowerCode();
+			System.out.println("How many flowers do you want? ");
+			int counter = sc.nextInt();
+			String flower = flowerType.getFlowerCode();
+
+			for (int i = 1; i <= counter; i++) {
+				bouquet.add(flower);
+			}
+
+		} else if (f == 2) {
+			Flower flowerType = bf.choose("Daisy");
+			System.out.println("We're preparing Your Bouquet . . . .");
+			flowerType.addIntoBouquet();
+			flowerType.getFlowerCode();
+			System.out.println("How many flowers do you want? ");
+			int counter = sc.nextInt();
+			String flower = flowerType.getFlowerCode();
+
+			for (int i = 1; i <= counter; i++) {
+				bouquet.add(flower);
+			}
+
+		} else if (f == 3) {
+			Flower flowerType = bf.choose("Tulip");
+			System.out.println("We're preparing Your Bouquet . . . .");
+			flowerType.addIntoBouquet();
+			flowerType.getFlowerCode();
+			System.out.println("How many flowers do you want? ");
+			int counter = sc.nextInt();
+			String flower = flowerType.getFlowerCode();
+
+			for (int i = 1; i <= counter; i++) {
+				bouquet.add(flower);
+			}
+		} else {
+			System.out.println("Unavailable number. Please enter again.");
+		}
+
+		/*
+		 * If we imagine that we look at delimiters as leaves: Calculating and prints
+		 * the total number of delimiters will be:
+		 */
+		// These lines calculate and print the total number of delimiters (which
+		// represent leaves in this context).
+		int totalDelimitersB = countDelimiters(bouquet, ",");
+		System.out.println(
+				"We added leaves as decorations. Total Number of leaves withim Your Bouquet: " + totalDelimitersB);
+		String leafs[] = new String[totalDelimitersB];
+		for (int i = 0; i < totalDelimitersB; i++) {
+			// These lines create an array of leaf emojis and print them out.
+			leafs[i] = "🌿";
+		}
+		for (int i = 0; i < totalDelimitersB; i++) {
+			if (i == totalDelimitersB - 1) {
+				System.out.print(leafs[i]);
+			} else {
+				System.out.print(leafs[i] + ",");
+			}
+		}
+		// These lines calculate and print the total number of flowers in the bouquet.
+		String outputB = bouquet.toString();
+		String[] stringB = outputB.split(",");
+		int num = stringB.length;
+		System.out.println("\nTotal Number of Flowers within: " + num);
+		System.out.println(bouquet);
+
+		System.out.println("****Your Bouquet is ready!****");
+		// The Unicode for the bouquet emoji is U+1F490
+		// The UTF-16 encoding for the bouquet emoji (💐) is "\uD83D\uDC90"
+		System.out.println("\uD83D\uDC90");
+		System.out.print("Please, take your Bouquet. ");
+		// This line closes the Scanner object, indicating that it's no longer needed
+		// for user input.
+		sc.close();
+	}
+
+	public static int countDelimiters(StringJoiner joiner, String delimiter) {
+		// Method that counts how many times the delimiter appears in the StringJoiner
+		// Converts the StringJoiner to a string
+		String output = joiner.toString();
+		// Counter for delimiters
+		int counter = 0;
+		// Loops through each character in the string
+		for (int i = 0; i < output.length(); i++) {
+			// Checks if the current character is a delimiter
+			if (output.substring(i, i + delimiter.length()).equals(delimiter)) {
+				// If it is, increments the counter
+				counter++;
+			}
+		}
+		// Returns the total number of delimiters
+		return counter;
+
+	}
+
+}

@@ -1,0 +1,4 @@
+INDEX VERSION 1.131+C:\Users\jelen\OneDrive\Desktop\The-Bouquet-Project_StringJoiner_Factory-Desing-Pattern\.metadata\.plugins\org.eclipse.jdt.core
+3406660112.index
+2419822565.index
+1865797976.index
